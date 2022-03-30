@@ -1,7 +1,8 @@
 from tkinter import *
 
 root = Tk()
-root.geometry('600x400+400+150')
+root.geometry('800x400+300+150')
+
 
 main_menu = Menu(root)
 root.config(menu=main_menu)
@@ -22,19 +23,29 @@ file_menu.add_command(label='Quit')
 main_menu.add_cascade(label='File', menu=file_menu)
 
 # Menu About
-help_menu = Menu(main_menu, tearoff=0)
-help_menu_sub = Menu(help_menu, tearoff=0)
-help_menu_sub.add_command(label='Online')
-help_menu_sub.add_command(label='Offline')
-help_menu.add_cascade(label='Help', menu=help_menu_sub)
-help_menu.add_command(label='About', command=about_program)
-main_menu.add_cascade(label='About', menu=help_menu)
+theme_menu = Menu(main_menu, tearoff=0)
+theme_menu_sub = Menu(theme_menu, tearoff=0)
+theme_menu_sub.add_command(label='Light Theme')
+theme_menu_sub.add_command(label='Dark Theme')
+theme_menu.add_cascade(label='Decor', menu=theme_menu_sub)
+theme_menu.add_command(label='About', command=about_program)
+main_menu.add_cascade(label='Other', menu=theme_menu)
 
 f_text = Frame(root, bg='white')
 f_text.pack(fill=BOTH, expand=1)
 
-t = Text(f_text, bg='#343D46', fg='#C6DEC1', padx=10, pady=10, wrap=WORD,
-         insertbackground='#EDA756', selectbackground='#4E5A65', spacing1=1, width=20)
+theme_colors = {
+    "dark" : {
+        "text_bg": "#343D46", "text_fg": "#C6DEC1" , "cursor": "#EDA756", "select_bg": "#4E5A65"
+    },
+    "light": {
+        "text_bg": "#fff", "text_fg": "#fff" , "cursor": "#8000FF", "select_bg": "#777"
+    }
+}
+
+
+t = Text(f_text, bg=theme_colors['dark']['text_bg'], fg=theme_colors['dark']['text_fg'], padx=10, pady=10, wrap=WORD,
+         insertbackground=theme_colors['dark']['cursor'], selectbackground=theme_colors['dark']['select_bg'], spacing1=1, width=20)
 t.pack(fill=BOTH, expand=1, side=LEFT)
 
 scrollbar = Scrollbar(f_text, command=t.yview)
