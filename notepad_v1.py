@@ -21,15 +21,23 @@ def notepad_quit():
 
 
 def open_file():
-    file_path = filedialog.askopenfilename(title='Choose the file', filetypes=(("Text Documents (*.txt)", "*.txt"), ("All Documents", "*.*")))
+    file_path = filedialog.askopenfilename(title='Choose the file',
+                                           filetypes=(("Text Documents (*.txt)", "*.txt"), ("All Documents", "*.*")))
     if file_path:
         t.delete('1.0', END)
         t.insert('1.0', open(file_path, encoding='utf-8').read())
 
 
-def save_file():
+# def save_file():
+#     file_path = filedialog.asksaveasfile(title='Choose the file', filetypes=(("Text Documents (*.txt)", "*.txt"), ("All Documents", "*.*")))
 
 
+def save_file_name():
+    file_path = filedialog.asksaveasfilename(title='Enter the name of file', filetypes=(("Text Documents (*.txt)", "*.txt"), ("All Documents", "*.*")))
+    f = open(file_path , 'w', encoding='utf-8')
+    text = t.get('1.0', END)
+    f.write(text)
+    f.close()
 
 def change_theme(theme):
     t['bg'] = theme_colors[theme]['text_bg']
@@ -42,8 +50,8 @@ def change_theme(theme):
 file_menu = Menu(main_menu, tearoff=0)
 file_menu.add_command(label='Create')
 file_menu.add_command(label='Open', command=open_file)
-file_menu.add_command(label='Save', command=save_file)
-file_menu.add_command(label='Save as...')
+# file_menu.add_command(label='Save', command=save_file)
+file_menu.add_command(label='Save as...', command=save_file_name)
 file_menu.add_separator()
 file_menu.add_command(label='Quit', command=notepad_quit)
 main_menu.add_cascade(label='File', menu=file_menu)
