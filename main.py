@@ -14,9 +14,11 @@ def about_program():
 
 
 def notepad_quit():
-    answer = messagebox.askquestion(title='Quit', message='Shotdown the Notepad?')
+    answer = messagebox.askokcancel(title='Quit', message='A You Sure?')
+    # print(answer)
     if answer:
         root.destroy()
+
 
 
 def change_theme(theme):
