@@ -20,6 +20,16 @@ def notepad_quit():
         root.destroy()
 
 
+def open_file():
+    file_path = filedialog.askopenfilename(title='Choose the file', filetypes=(("Text Documents (*.txt)", "*.txt"), ("All Documents", "*.*")))
+    if file_path:
+        t.delete('1.0', END)
+        t.insert('1.0', open(file_path, encoding='utf-8').read())
+
+
+def save_file():
+
+
 
 def change_theme(theme):
     t['bg'] = theme_colors[theme]['text_bg']
@@ -31,8 +41,8 @@ def change_theme(theme):
 # Menu File
 file_menu = Menu(main_menu, tearoff=0)
 file_menu.add_command(label='Create')
-file_menu.add_command(label='Open')
-file_menu.add_command(label='Save')
+file_menu.add_command(label='Open', command=open_file)
+file_menu.add_command(label='Save', command=save_file)
 file_menu.add_command(label='Save as...')
 file_menu.add_separator()
 file_menu.add_command(label='Quit', command=notepad_quit)
